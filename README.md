@@ -14,7 +14,7 @@ $ COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
 
 ```
 # Enter the container
-$ docker-compose run --rm abuild
+$ ./shell.sh
 # Pick a package
 $ cd php7
 # Build it
