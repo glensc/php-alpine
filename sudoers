@@ -1,0 +1,2 @@
+# allow running root without password
+packager ALL=(ALL) NOPASSWD: ALL
