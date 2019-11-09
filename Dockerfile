@@ -19,8 +19,11 @@ RUN --mount=type=cache,id=apk,target=/var/cache/apk \
 	&& ln -vs /var/cache/apk /etc/apk/cache \
 	&& apk add \
 		alpine-sdk \
+		ccache \
 	&& adduser -D -u 1000 -g 1000 -G abuild packager \
 	&& exit 0
+
+ENV PATH "/usr/lib/ccache/bin:$PATH"
 
 COPY sudoers /etc/sudoers.d/packager
 USER packager
