@@ -6,6 +6,7 @@ services:
     build: .
     volumes:
       - ./packages:/v${ALPINE_VERSION:-3.10}
+      - ./public:/public
       - ./distfiles:/var/cache/distfiles
       - ./keys:/home/packager/.abuild/keys
       - ./abuild.conf:/home/packager/.abuild/abuild.conf

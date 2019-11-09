@@ -19,6 +19,7 @@ fix_permissions() {
 	maybe_chown packager:abuild /build
 	maybe_chown packager:abuild /home/packager/.abuild/keys
 	maybe_chown packager:abuild /home/packager/.ccache
+	maybe_chown packager:abuild /public
 }
 
 # do some common init, then switch user and execute original entrypoint

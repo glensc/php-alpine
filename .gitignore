@@ -3,3 +3,5 @@
 /packages/*/pkg
 /packages/*/src
 /packages/*/tmp
+/public/*
+!/public
