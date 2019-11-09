@@ -8,8 +8,10 @@ services:
       - ./packages:/v${ALPINE_VERSION:-3.10}
       - ./distfiles:/var/cache/distfiles
       - apk-cache:/etc/apk/cache
+      - build-data:/build
 
 volumes:
   apk-cache:
+  build-data:
 
 # vim:ts=2:sw=2:et

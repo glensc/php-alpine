@@ -21,6 +21,7 @@ RUN --mount=type=cache,id=apk,target=/var/cache/apk \
 		alpine-sdk \
 		bash \
 		ccache \
+		setpriv \
 		vim \
 	&& adduser -D -u 1000 -g 1000 -G abuild packager \
 	&& exit 0
@@ -28,4 +29,5 @@ RUN --mount=type=cache,id=apk,target=/var/cache/apk \
 ENV PATH "/usr/lib/ccache/bin:$PATH"
 
 COPY sudoers /etc/sudoers.d/packager
-USER packager
+COPY entrypoint.sh /abuild
+ENTRYPOINT ["/abuild"]
