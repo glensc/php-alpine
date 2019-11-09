@@ -1,0 +1,10 @@
+version: "3.6"
+
+services:
+  abuild:
+    image: php-alpine:v${ALPINE_VERSION:-3.10}
+    build: .
+    volumes:
+      - ./packages:/v${ALPINE_VERSION:-3.10}
+
+# vim:ts=2:sw=2:et
