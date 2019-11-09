@@ -16,7 +16,8 @@ maybe_chown() {
 }
 
 fix_permissions() {
-	chown packager:abuild /build
+	maybe_chown packager:abuild /build
+	maybe_chown packager:abuild /home/packager/.abuild/keys
 }
 
 # do some common init, then switch user and execute original entrypoint

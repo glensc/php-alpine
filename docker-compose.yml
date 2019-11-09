@@ -7,6 +7,8 @@ services:
     volumes:
       - ./packages:/v${ALPINE_VERSION:-3.10}
       - ./distfiles:/var/cache/distfiles
+      - ./keys:/home/packager/.abuild/keys
+      - ./abuild.conf:/home/packager/.abuild/abuild.conf
       - apk-cache:/etc/apk/cache
       - build-data:/build
 

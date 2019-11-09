@@ -24,6 +24,7 @@ RUN --mount=type=cache,id=apk,target=/var/cache/apk \
 		setpriv \
 		vim \
 	&& adduser -D -u 1000 -g 1000 -G abuild packager \
+	&& install -d -o packager -g abuild ~packager/.abuild/keys \
 	&& exit 0
 
 ENV PATH "/usr/lib/ccache/bin:$PATH"
