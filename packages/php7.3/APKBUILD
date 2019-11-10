@@ -1,6 +1,7 @@
 # Contributor: Valery Kartel <valery.kartel@gmail.com>
 # Contributor: Jakub Jirutka <jakub@jirutka.cz>
-# Maintainer: Valery Kartel <valery.kartel@gmail.com>
+# Contributor: Valery Kartel <valery.kartel@gmail.com>
+# Maintainer: Elan Ruusamäe <glen@pld-linux.org>
 
 # Bundled libraries
 #
@@ -24,8 +25,9 @@
 # ----------+--------------------------------------------
 # zlib      | https://bugs.alpinelinux.org/issues/8299
 
-pkgname=php7
+pkgname=php7.3
 _pkgreal=php
+_phpver=7.3
 pkgver=7.3.11
 pkgrel=0
 _apiver=20180731
@@ -92,9 +94,9 @@ subpackages="$pkgname-static $pkgname-dev $pkgname-dbg $pkgname-doc
 	$pkgname-pear::noarch
 	"
 source="https://php.net/distributions/$_pkgreal-$pkgver.tar.bz2
-	$pkgname-fpm.initd
-	$pkgname-fpm.logrotate
-	$pkgname-module.conf
+	php7-fpm.initd
+	php7-fpm.logrotate
+	php7-module.conf
 	disabled-tests.list
 	install-pear.patch
 	includedir.patch
@@ -107,9 +109,9 @@ srcdir="/build/$pkgname"
 builddir="$srcdir/$_pkgreal-$pkgver"
 pkgbasedir="$builddir-root"
 
-_libdir="/usr/lib/$pkgname"
+_libdir="/usr/lib/php/$_phpver"
 _extension_dir="$_libdir/modules"
-_extension_confd="/etc/$pkgname/conf.d"
+_extension_confd="/etc/php/$_phpver/conf.d"
 
 _extensions="
 	bcmath
@@ -272,15 +274,16 @@ _build() {
 		--build=$CBUILD \
 		--host=$CHOST \
 		--prefix=/usr \
-		--program-suffix=$_suffix \
+		--program-suffix=$_phpver \
 		--libdir=$_libdir \
-		--datadir=/usr/share/$pkgname \
-		--sysconfdir=/etc/$pkgname \
+		--includedir=/usr/include/php/$_phpver \
+		--datadir=/usr/share/php/$_phpver \
+		--sysconfdir=/etc/php/$_phpver \
 		--localstatedir=/var \
 		--with-layout=GNU \
 		--with-pic \
-		--with-pear=/usr/share/$pkgname \
-		--with-config-file-path=/etc/$pkgname \
+		--with-pear=/usr/share/php/$_phpver \
+		--with-config-file-path=/etc/php/$_phpver \
 		--with-config-file-scan-dir=$_extension_confd \
 		--disable-short-tags \
 		\
@@ -480,7 +483,7 @@ apache2() {
 	install -D -m 755 "$builddir"/sapi/apache2handler/mod_php$_suffix.so \
 		"$subpkgdir"/usr/lib/apache2/mod_php$_suffix.so
 
-	install -D -m 644 "$srcdir"/php$_suffix-module.conf \
+	install -D -m 644 "$srcdir"/php7-module.conf \
 		"$subpkgdir"/etc/apache2/conf.d/php$_suffix-module.conf
 }
 
@@ -542,10 +545,10 @@ fpm() {
 			"$subpkgdir"/etc/$pkgname/$file
 	done
 
-	install -D -m 755 "$srcdir"/$pkgname-fpm.initd \
+	install -D -m 755 "$srcdir"/php7-fpm.initd \
 		"$subpkgdir"/etc/init.d/php-fpm$_suffix
 
-	install -D -m 644 "$srcdir"/$pkgname-fpm.logrotate \
+	install -D -m 644 "$srcdir"/php7-fpm.logrotate \
 		"$subpkgdir"/etc/logrotate.d/php-fpm$_suffix
 
 	mkdir -p "$subpkgdir"/var/log/$pkgname
