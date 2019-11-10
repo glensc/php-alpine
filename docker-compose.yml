@@ -1,0 +1,22 @@
+version: "3.6"
+
+services:
+  abuild:
+    image: php-alpine:v${ALPINE_VERSION:-3.10}
+    build: .
+    volumes:
+      - ./packages:/v${ALPINE_VERSION:-3.10}
+      - ./public:/public
+      - ./distfiles:/var/cache/distfiles
+      - ./keys:/home/packager/.abuild/keys
+      - ./abuild.conf:/home/packager/.abuild/abuild.conf
+      - apk-cache:/etc/apk/cache
+      - build-data:/build
+      - ccache:/home/packager/.ccache
+
+volumes:
+  apk-cache:
+  ccache:
+  build-data:
+
+# vim:ts=2:sw=2:et
