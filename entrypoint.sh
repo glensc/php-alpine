@@ -16,10 +16,13 @@ maybe_chown() {
 }
 
 fix_permissions() {
+	chmod a+rX "$0"
 	maybe_chown packager:abuild /build
 	maybe_chown packager:abuild /home/packager/.abuild/keys
 	maybe_chown packager:abuild /home/packager/.ccache
 	maybe_chown packager:abuild /public
+	chown root:abuild /var/cache/distfiles
+	chmod 775 /var/cache/distfiles
 }
 
 # do some common init, then switch user and execute original entrypoint
