@@ -2,15 +2,22 @@ version: "3.6"
 
 services:
   abuild:
-    image: php-alpine:v${ALPINE_VERSION:-3.10}
-    build: .
+    image: php-alpine:v$ALPINE_VERSION
+    build:
+      context: .
+      args:
+        ALPINE_VERSION: $ALPINE_VERSION
+    env_file:
+      - ./.env
     volumes:
-      - ./packages:/v${ALPINE_VERSION:-3.10}
+      - ./packages:/v$ALPINE_VERSION
       - ./public:/public
       - ./distfiles:/var/cache/distfiles
-      - ./keys:/home/packager/.abuild/keys
+      - ./keys/$KEYNAME:/home/packager/.abuild/keys/$KEYNAME
+      - ./keys/$KEYNAME.pub:/etc/apk/keys/$KEYNAME.pub
       - ./abuild.conf:/home/packager/.abuild/abuild.conf
       - ./.bash_history:/home/packager/.bash_history
+      - ./php-alpine.list:/etc/apk/repositories.d/php-alpine.list
       - apk-cache:/etc/apk/cache
       - build-data:/build
       - ccache:/home/packager/.ccache
