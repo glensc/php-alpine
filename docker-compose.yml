@@ -10,6 +10,7 @@ services:
       - ./distfiles:/var/cache/distfiles
       - ./keys:/home/packager/.abuild/keys
       - ./abuild.conf:/home/packager/.abuild/abuild.conf
+      - ./.bash_history:/home/packager/.bash_history
       - apk-cache:/etc/apk/cache
       - build-data:/build
       - ccache:/home/packager/.ccache

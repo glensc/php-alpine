@@ -1,4 +1,5 @@
 /.idea/
+/.bash_history
 /docker-compose.override.yml
 /packages/*/pkg
 /packages/*/src
